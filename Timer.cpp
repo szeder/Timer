@@ -43,7 +43,6 @@ int8_t Timer::every(unsigned long period, void (*callback)(), int repeatCount)
 	_events[i].repeatCount = repeatCount;
 	_events[i].callback = callback;
 	_events[i].lastEventTime = millis();
-	_events[i].count = 0;
 	return i;
 }
 
@@ -69,7 +68,6 @@ int8_t Timer::oscillate(uint8_t pin, unsigned long period, uint8_t startingValue
 	digitalWrite(pin, startingValue);
 	_events[i].repeatCount = repeatCount * 2; // full cycles not transitions
 	_events[i].lastEventTime = millis();
-	_events[i].count = 0;
 	return i;
 }
 

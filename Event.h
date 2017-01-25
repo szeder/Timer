@@ -43,7 +43,6 @@ public:
   uint8_t pinState;
   void (*callback)(void);
   unsigned long lastEventTime;
-  int count;
 };
 
 #endif

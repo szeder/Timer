@@ -56,9 +56,8 @@ void Event::update(unsigned long now)
 				break;
 		}
 		lastEventTime = now;
-		count++;
 
-		if (repeatCount > -1 && count >= repeatCount)
+		if (repeatCount > 0 && --repeatCount == 0)
 		{
 			eventType = EVENT_NONE;
 		}
