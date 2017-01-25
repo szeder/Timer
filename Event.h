@@ -39,10 +39,16 @@ public:
   int8_t eventType;
   unsigned long period;
   int repeatCount;
-  uint8_t pin;
-  uint8_t pinState;
-  void (*callback)(void);
   unsigned long lastEventTime;
+  union
+  {
+    struct
+    {
+      uint8_t pin;
+      uint8_t state;
+    } oscillator;
+    void (*callback)(void);
+  };
 };
 
 #endif

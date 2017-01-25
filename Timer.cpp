@@ -62,9 +62,9 @@ int8_t Timer::oscillate(uint8_t pin, unsigned long period, uint8_t startingValue
 	if (i == NO_TIMER_AVAILABLE) return NO_TIMER_AVAILABLE;
 
 	_events[i].eventType = EVENT_OSCILLATE;
-	_events[i].pin = pin;
+	_events[i].oscillator.pin = pin;
+	_events[i].oscillator.state = startingValue;
 	_events[i].period = period;
-	_events[i].pinState = startingValue;
 	digitalWrite(pin, startingValue);
 	_events[i].repeatCount = repeatCount * 2; // full cycles not transitions
 	_events[i].lastEventTime = millis();
