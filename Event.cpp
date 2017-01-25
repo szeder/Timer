@@ -57,9 +57,10 @@ void Event::update(unsigned long now)
 		}
 		lastEventTime = now;
 		count++;
-	}
-	if (repeatCount > -1 && count >= repeatCount)
-	{
-		eventType = EVENT_NONE;
+
+		if (repeatCount > -1 && count >= repeatCount)
+		{
+			eventType = EVENT_NONE;
+		}
 	}
 }
