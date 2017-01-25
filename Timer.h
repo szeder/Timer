@@ -26,7 +26,9 @@
 #include <inttypes.h>
 #include "Event.h"
 
-#define MAX_NUMBER_OF_EVENTS (10)
+#ifndef TIMER_MAX_NUMBER_OF_EVENTS
+# define TIMER_MAX_NUMBER_OF_EVENTS (10)
+#endif
 
 #define TIMER_NOT_AN_EVENT (-2)
 #define NO_TIMER_AVAILABLE (-1)
@@ -59,7 +61,7 @@ public:
   void update(unsigned long now);
 
 protected:
-  Event _events[MAX_NUMBER_OF_EVENTS];
+  Event _events[TIMER_MAX_NUMBER_OF_EVENTS];
   int8_t findFreeEventIndex(void);
 
 };

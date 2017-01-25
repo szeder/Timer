@@ -95,7 +95,7 @@ int8_t Timer::pulseImmediate(uint8_t pin, unsigned long period, uint8_t pulseVal
 {
 	int8_t id(oscillate(pin, period, pulseValue, 1));
 	// now fix the repeat count
-	if (id >= 0 && id < MAX_NUMBER_OF_EVENTS) {
+	if (id >= 0 && id < TIMER_MAX_NUMBER_OF_EVENTS) {
 		_events[id].repeatCount = 1;
 	}
 	return id;
@@ -104,7 +104,7 @@ int8_t Timer::pulseImmediate(uint8_t pin, unsigned long period, uint8_t pulseVal
 
 void Timer::stop(int8_t id)
 {
-	if (id >= 0 && id < MAX_NUMBER_OF_EVENTS) {
+	if (id >= 0 && id < TIMER_MAX_NUMBER_OF_EVENTS) {
 		_events[id].eventType = EVENT_NONE;
 	}
 }
@@ -117,7 +117,7 @@ void Timer::update(void)
 
 void Timer::update(unsigned long now)
 {
-	for (int8_t i = 0; i < MAX_NUMBER_OF_EVENTS; i++)
+	for (int8_t i = 0; i < TIMER_MAX_NUMBER_OF_EVENTS; i++)
 	{
 		if (_events[i].eventType != EVENT_NONE)
 		{
@@ -127,7 +127,7 @@ void Timer::update(unsigned long now)
 }
 int8_t Timer::findFreeEventIndex(void)
 {
-	for (int8_t i = 0; i < MAX_NUMBER_OF_EVENTS; i++)
+	for (int8_t i = 0; i < TIMER_MAX_NUMBER_OF_EVENTS; i++)
 	{
 		if (_events[i].eventType == EVENT_NONE)
 		{
