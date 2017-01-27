@@ -91,9 +91,9 @@ int8_t Timer::pulse(uint8_t pin, unsigned long period, uint8_t startingValue)
  */
 int8_t Timer::pulseImmediate(uint8_t pin, unsigned long period, uint8_t pulseValue)
 {
-	int8_t id(oscillate(pin, period, pulseValue, 1));
+	int8_t id = oscillate(pin, period, pulseValue, 1);
 	// now fix the repeat count
-	if (id >= 0 && id < MAX_NUMBER_OF_EVENTS) {
+	if (id >= 0) {
 		_events[id].repeatCount = 1;
 	}
 	return id;
