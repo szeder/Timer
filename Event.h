@@ -39,7 +39,7 @@ public:
   int8_t eventType;
   unsigned long period;
   int repeatCount;
-  unsigned long lastEventTime;
+  unsigned long nextEventTime;
   union
   {
     struct

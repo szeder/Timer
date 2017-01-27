@@ -42,7 +42,7 @@ void Event::update(void)
 
 void Event::update(unsigned long now)
 {
-	if (now - lastEventTime >= period)
+	if (now >= nextEventTime)
 	{
 		switch (eventType)
 		{
@@ -55,7 +55,7 @@ void Event::update(unsigned long now)
 				digitalWrite(oscillator.pin, oscillator.state);
 				break;
 		}
-		lastEventTime = now;
+		nextEventTime = now + period;
 
 		if (repeatCount > 0 && --repeatCount == 0)
 		{
