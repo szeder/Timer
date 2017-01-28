@@ -33,7 +33,7 @@ Timer::Timer(void)
 {
 }
 
-int8_t Timer::every(unsigned long period, void (*callback)(), int repeatCount)
+int8_t Timer::every(unsigned long after, unsigned long period, void (*callback)(), int repeatCount)
 {
 	int8_t i = findFreeEventIndex();
 	if (i == -1) return -1;
@@ -42,8 +42,18 @@ int8_t Timer::every(unsigned long period, void (*callback)(), int repeatCount)
 	_events[i].period = period;
 	_events[i].repeatCount = repeatCount;
 	_events[i].callback = callback;
-	_events[i].nextEventTime = millis() + period;
+	_events[i].nextEventTime = millis() + after;
 	return i;
+}
+
+int8_t Timer::every(unsigned long after, unsigned long period, void (*callback)())
+{
+	return every(after, period, callback, -1);
+}
+
+int8_t Timer::every(unsigned long period, void (*callback)(), int repeatCount)
+{
+	return every(period, period, callback, repeatCount);
 }
 
 int8_t Timer::every(unsigned long period, void (*callback)())
@@ -56,7 +66,7 @@ int8_t Timer::after(unsigned long period, void (*callback)())
 	return every(period, callback, 1);
 }
 
-int8_t Timer::oscillate(uint8_t pin, unsigned long period, uint8_t startingValue, int repeatCount)
+int8_t Timer::oscillate(uint8_t pin, unsigned long after, unsigned long period, uint8_t startingValue, int repeatCount)
 {
 	int8_t i = findFreeEventIndex();
 	if (i == NO_TIMER_AVAILABLE) return NO_TIMER_AVAILABLE;
@@ -67,8 +77,13 @@ int8_t Timer::oscillate(uint8_t pin, unsigned long period, uint8_t startingValue
 	_events[i].period = period;
 	digitalWrite(pin, startingValue);
 	_events[i].repeatCount = repeatCount * 2; // full cycles not transitions
-	_events[i].nextEventTime = millis() + period;
+	_events[i].nextEventTime = millis() + after;
 	return i;
+}
+
+int8_t Timer::oscillate(uint8_t pin, unsigned long period, uint8_t startingValue, int repeatCount)
+{
+	return oscillate(pin, period, period, startingValue, repeatCount);
 }
 
 int8_t Timer::oscillate(uint8_t pin, unsigned long period, uint8_t startingValue)
