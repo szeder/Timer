@@ -109,6 +109,16 @@ void Timer::stop(int8_t id)
 	}
 }
 
+void Timer::stop(void (*callback)(void))
+{
+	for (int8_t i = 0; i < TIMER_MAX_NUMBER_OF_EVENTS; i++) {
+		if (_events[i].callback == callback &&
+		    _events[i].eventType == EVENT_EVERY) {
+			_events[i].eventType = EVENT_NONE;
+		}
+	}
+}
+
 void Timer::update(void)
 {
 	unsigned long now = millis();
